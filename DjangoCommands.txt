@@ -1,0 +1,115 @@
+* command for installing django : pip install Django
+*checking version : django-admin version
+FRAMEWORK : collection of libraries
+*create project : django-admin startproject name
+*runserver : python manage.py runserver
+* strart application : python manage.py startapp appname
+-------------------------------------
+
+Architecture of django : MVT
+
+MVT - Model Viev Templates
+
+
+BACKEND:
+----------
+url - mapping to functions
+view - function
+model- database table
+template - html layout
+
+--------
+databse:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DB_name',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'DB_user',
+        'PASSWORD': 'DB_password',
+    }
+}
+-------------
+
+workflow
+--------
+
+project url - application url - view - model - layout
+
+=-------------
+
+project(settings) - application url
+
+
+============\
+
+new project
+application calculate
+add
+sub
+---------
+POST:
+add csrf token when using post;
+{%csrf_token%}
+------------
+url href={%url 'name'%}
+
+-----------------
+import redirect for returning name in url
+----------------------
+KEY related error:
+different key name : M
+
+------------------------
+After creating/updating models : python manage.py makemigrations - creating querry for executing migration file
+execute file : python manage.py migrate
+
+--------------
+two string method:
+
+def __str__(self):
+	return self.book_name
+
+print object 
+---------------------------
+django shell : python manage.py shell
+------------------
+ORM Querries
+
+-----------
+import model: from AddBook.models import AddBooks
+
+create
+-------
+books=AddBooks(book_name="Alchemist")
+books.save()
+
+
+print all : ref = modelname.objects.all()
+
+For fetching a specific object: book=AddBooks.objects.get(book_name="name")
+				book.author
+				book.price
+fetch by id : book=AddBooks.objects.get(id=1)
+
+UPDAT orm querry:
+-----------
+fetch : book=AddBooks.objects.get(book_name="Das Kapital")
+book.price=250
+book.save()	
+
+delete:
+-------
+
+fetch : book=AddBooks.objects.get(id=1)
+	book.delete()
+
+-----------
+filter:
+-------
+books=AddBooks.objects.filter(category="Novel")
+price>=300:books=AddBooks.objects.filter(price__gte=100) 
+--lte(lessthan or equalto)
+

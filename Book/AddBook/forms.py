@@ -1,4 +1,5 @@
 from django import forms
+from .models import AddBooks
 
 class AddBookForm(forms.Form):
     b_name = forms.CharField(label="Book Name",widget=forms.TextInput(attrs={'class':"form-control"}))
@@ -9,8 +10,13 @@ class AddBookForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        book_name=cleaned_data['b_name']
         price = cleaned_data['price']
         no_copy = cleaned_data['no_copy']
+        books = AddBooks.objects.filter(book_name__iexact=book_name)
+        if books:
+            msg = "Book Already exists!!"
+            self.add_error("b_name",msg)
         try:
             price = int(price)
             if price < 0:

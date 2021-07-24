@@ -77,7 +77,7 @@ print object
 django shell : python manage.py shell
 ------------------
 ORM Querries
-
+(Objct Relational Mapper)
 -----------
 import model: from AddBook.models import AddBooks
 
@@ -111,5 +111,39 @@ filter:
 -------
 books=AddBooks.objects.filter(category="Novel")
 price>=300:books=AddBooks.objects.filter(price__gte=100) 
+
 --lte(lessthan or equalto)
 
+exclude:  books=AddBooks.objects.exclude(category="Novel")
+----
+
+Display in ascending order: books=AddBooks.objects.all().order_by('price')
+-----
+descendign order:  books=AddBooks.objects.all().order_by('-price')
+---------
+sort by price and find highest price : books=AddBooks.objects.all().order_by('-price')[0]
+--------
+Max 
+-----
+from django.db.models import Max
+book=AddBooks.objects.aggregate(Max('price'))
+
+Min
+----
+from django.db.models import Min
+book=AddBooks.objects.aggregate(Min('price'))
+
+---------
+Case insensitive search: book=AddBooks.objects.filter(book_name__iexact="alchemist")
+
+----------
+contains:
+book=AddBooks.objects.filter(book_name__contains="alc")
+
+
+--------
+HW:
+project : CRM
+app: employees
+models : emp_name,desig,salary,experience,email=unique
+6 entry

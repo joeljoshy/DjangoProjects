@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import AddBookForm,RegistrationForm
-
+from .models import AddBooks
 
 # Create your views here.
 def add_book(request):
@@ -19,8 +19,11 @@ def add_book(request):
             price = form.cleaned_data["price"]
             no_copy = form.cleaned_data["no_copy"]
             print("Book Name : ", b_name, "\nAuthor : ", author, "\nCategory : ", cat, "\nPrice : ", price,"\nNo: of copies : ", no_copy)
-            return render(request, 'addbook.html')
-
+            # saving to DB using ORM query
+            books = AddBooks(book_name=b_name,author=author,category=cat,price=price,copies=no_copy)
+            books.save()
+            # return render(request, 'index.html')
+            return redirect("index")
         else:
             return render(request, 'addbook.html', {'form': form})
 

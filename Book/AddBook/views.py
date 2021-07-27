@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import AddBookForm,RegistrationForm
+from .forms import AddBookForm,RegistrationForm,UpdateBookForm
 from .models import AddBooks
 
 # Create your views here.
@@ -49,3 +49,54 @@ def register(request):
         return render(request, 'registration.html', {'form': form})
 
 
+def get_books(request):
+    books = AddBooks.objects.all()
+    context = {}
+    context['books'] = books
+    return render(request,"book_list.html",context)
+
+def get_book(id):
+    return AddBooks.objects.get(id=id)
+
+
+def book_details(request,id):
+    book = get_book(id)
+    context = {}
+    context['book'] = book
+    return render(request,'view_book.html',context)
+def delete(request,id):
+    book = get_book(id)
+    book.delete()
+    return redirect('booklist')
+
+def update(request,id):
+    book = get_book(id)
+    form = UpdateBookForm(initial={
+        'b_name':book.book_name,
+        'author':book.author,
+        'cat':book.category,
+        'price':book.price,
+        'no_copy':book.copies
+    })
+
+    context={}
+    context['form'] = form
+    if request.method == "POST":
+        book=get_book(id)
+        form = UpdateBookForm(request.POST)
+        if form.is_valid():
+            book.book_name=form.cleaned_data['b_name']
+            book.author = form.cleaned_data['author']
+            book.category = form.cleaned_data['cat']
+            book.price = form.cleaned_data['price']
+            book.copies = form.cleaned_data['no_copy']
+            book.save()
+            return redirect('booklist')
+        else:
+            form=UpdateBookForm(request.POST)
+            context['form'] = form
+            print(form.errors)
+            return render(request, 'edit_book.html', context)
+
+
+    return render(request,'edit_book.html',context)

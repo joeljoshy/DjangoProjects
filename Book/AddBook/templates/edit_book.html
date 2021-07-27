@@ -2,17 +2,16 @@
 {%extends 'base.html'%}
 
 {%block body_block%}
-
-<div class="container">
-    <div class="row mt-5 p-1">
+<div class="container ">
+    <div class="row">
         <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-4 mt-5">
             <form action="" method="post" class="form-control">
                 {%csrf_token%}
                 <table>
                     {{form.as_table}}
                 </table>
-                <input type="submit" name="Add " class="btn-primary">
+                <input type="submit" name="Update" value="Update" class="btn-dark mt-2 p-1">
             </form>
         </div>
         <div class="col-4"></div>

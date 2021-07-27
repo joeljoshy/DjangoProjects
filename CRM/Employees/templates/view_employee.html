@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+y{%extends 'base.html'%}
+{%block body_block%}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          {{emp.emp_name}}
+        </div>
+           <ul class="list-group list-group-flush">
+             <li class="list-group-item">{{emp.desig}}</li>
+             <li class="list-group-item">{{emp.salary}}</li>
+             <li class="list-group-item">{{emp.exp}}</li>
+             <li class="list-group-item">{{emp.email}}</li>
+           </ul>
+        </div>
+
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+{%endblock%}

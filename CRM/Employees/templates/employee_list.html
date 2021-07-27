@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{%extends 'base.html'%}
+
+{%block body_block%}
+    <div class="container text-white">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <h2 class="text-center mt-5">Available Employees</h2>
+                <table class="table text-white mt-5">
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Designation</th>
+                        <th>Salary</th>
+                        <th>Experience</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    {%for emp in emps%}
+                    <tr>
+                        <td>{{emp.emp_name}}</td>
+                        <td>{{emp.desig}}</td>
+                        <td>{{emp.salary}}</td>
+                        <td>{{emp.exp}} years</td>
+                        <td>{{emp.email}}</td>
+                        <td class="text-white">
+                            <a href="{%url 'update' emp.id%}" class="btn btn-success ms-2">Edit</a>
+                            <a href="{%url 'remove' emp.id%}" class="btn btn-danger ms-2">Delete</a>
+                            <a href="{%url 'details' emp.id%}" class="btn btn-warning ms-2">View</a>
+                    </td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{%endblock%}

@@ -4,6 +4,17 @@
 {%block body_block%}
     <div class="container text-white">
         <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <form action="" method="post">
+                    {%csrf_token%}
+                    {{form.as_p}}
+                    <input type="submit" value="Search" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
                 <h2 class="text-center mt-5">Available Employees</h2>
@@ -16,6 +27,7 @@
                         <th>Email</th>
                         <th>Actions</th>
                     </tr>
+                    {%if emps%}
                     {%for emp in emps%}
                     <tr>
                         <td>{{emp.emp_name}}</td>
@@ -30,6 +42,15 @@
                     </td>
                     </tr>
                     {%endfor%}
+                    {%else%}
+                        <tr>
+                            <td colspan="5">
+                                <h3>
+                                    No employee found!!
+                                </h3>
+                            </td>
+                        </tr>
+                    {%endif%}
                 </table>
             </div>
             <div class="col-2"></div>

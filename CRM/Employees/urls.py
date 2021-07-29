@@ -1,10 +1,11 @@
 from django.urls import path
 from django.shortcuts import render
-from .views import add_employee,get_employee,emp_details,delete,update
+from .views import add_employee,get_employee,emp_details,delete,update,create_account
 
 urlpatterns = [
     path('AddEmployee',add_employee,name="addemployee"),
     path("",lambda request:render(request,"index.html"),name='index'),
+    path('employees/account',create_account,name='account'),
     path('employees',get_employee,name='emplist'),
     path('employees/<int:id>',emp_details,name='details'),
     path('employees/remove/<int:id>',delete,name='remove'),
